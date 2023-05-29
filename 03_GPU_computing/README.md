@@ -1,15 +1,15 @@
-# A3
+# GPU VS. CPU COMPUTING
 
 Normalized Difference Vegetation Index" (NDVI)
 Calculated using Spectral Bands 4 (Red) and 5 (Near Infrared – NIR) - scale from 0 to 1
 Urban areas: 0, rural areas: 1
 
 ## Question 1
-- I replicated the original serial NDVI computation in this file: [q1_serial.py](https://github.com/macs30113-s23/a3-magabrielaa/blob/main/q1/serial/q1_serial.py). The corresponding sbatch file is [q1_serial.sbatch](https://github.com/macs30113-s23/a3-magabrielaa/blob/main/q1/serial/q1_serial.sbatch), which runs the code on one CPU core using the broadwl partition.
+- I replicated the original serial NDVI computation in this file: [q1_serial.py](https://github.com/magabrielaa/large-scale-computing/blob/main/03_GPU_computing/q1/serial/q1_serial.py). The corresponding sbatch file is [q1_serial.sbatch](https://github.com/magabrielaa/large-scale-computing/blob/main/03_GPU_computing/q1/serial/q1_serial.sbatch), which runs the code on one CPU core using the broadwl partition.
 
-    - The serial version of NDVI runs in **0.114404 seconds**, which is contained in [q1_serial.out](https://github.com/macs30113-s23/a3-magabrielaa/blob/main/q1/serial/q1_serial.out)
+    - The serial version of NDVI runs in **0.114404 seconds**, which is contained in [q1_serial.out](https://github.com/magabrielaa/large-scale-computing/blob/main/03_GPU_computing/q1/serial/q1_serial.out)
 
-- For the parallelizable version of NDVI, I wrapped the NDVI calculation with numba, using the vectorize decorator in a file called [q1_parallel.py](https://github.com/macs30113-s23/a3-magabrielaa/blob/main/q1/parallel/q1_parallel.py) as follows:
+- For the parallelizable version of NDVI, I wrapped the NDVI calculation with numba, using the vectorize decorator in a file called [q1_parallel.py](https://github.com/magabrielaa/large-scale-computing/blob/main/03_GPU_computing/q1/parallel/q1_parallel.py) as follows:
 
     ```python
     @vectorize(['f8(f8, f8)'], target='cuda')
@@ -17,9 +17,9 @@ Urban areas: 0, rural areas: 1
         ndvi = (nir - red) / (nir + red) # NDVI calculation
         return ndvi
     ```
-    - The corresponding sbatch file is [q1_parallel.sbatch](https://github.com/macs30113-s23/a3-magabrielaa/blob/main/q1/parallel/q1_parallel.sbatch), in which I request one GPU node and one CPU host to drive the GPU.
+    - The corresponding sbatch file is [q1_parallel.sbatch](https://github.com/magabrielaa/large-scale-computing/blob/main/03_GPU_computing/q1/parallel/q1_parallel.sbatch), in which I request one GPU node and one CPU host to drive the GPU.
 
-    - The parallel version with Numba on a GPU runs in **0.256568 seconds**, which is logged in [q1_parallel.out](https://github.com/macs30113-s23/a3-magabrielaa/blob/main/q1/parallel/q1_parallel.out)
+    - The parallel version with Numba on a GPU runs in **0.256568 seconds**, which is logged in [q1_parallel.out](https://github.com/magabrielaa/large-scale-computing/blob/main/03_GPU_computing/q1/parallel/q1_parallel.out)
 
 
 ## Question 2
@@ -33,13 +33,13 @@ CPU's have bigger (and fewer) cores, so they run eally fast. In contrast, GPU's 
 ## Question 3
 For this question, I created two sets of files both for the serial and parallel versions:
 
-- The **serial** code is contained in [q3_serial.py](https://github.com/macs30113-s23/a3-magabrielaa/blob/main/q3/serial/q3_serial.py) and through [q3_serial.sbatch](https://github.com/macs30113-s23/a3-magabrielaa/blob/main/q3/serial/q3_serial.sbatch) I had to request 25G for the code to run. The `.py` file times three runs for 50x, 100x, and 150x Landsat scenes. The results are in [q3_serial.out](https://github.com/macs30113-s23/a3-magabrielaa/blob/main/q3/serial/q3_serial.out)
+- The **serial** code is contained in [q3_serial.py](https://github.com/magabrielaa/large-scale-computing/blob/main/03_GPU_computing/q3/serial/q3_serial.py) and through [q3_serial.sbatch](https://github.com/magabrielaa/large-scale-computing/blob/main/03_GPU_computing/q3/serial/q3_serial.sbatch) I had to request 25G for the code to run. The `.py` file times three runs for 50x, 100x, and 150x Landsat scenes. The results are in [q3_serial.out](https://github.com/magabrielaa/large-scale-computing/blob/main/03_GPU_computing/q3/serial/q3_serial.out)
 
-- Likewise, the **parallel** code is in [q3_parallel.py](https://github.com/macs30113-s23/a3-magabrielaa/blob/main/q3/parallel/q3_parallel.py). In this case, I had to allocate 10G of memory in [q3_parallel.sbatch](https://github.com/macs30113-s23/a3-magabrielaa/blob/main/q3/parallel/q3_parallel.sbatch) for the code to run. The output is in [q3_parallel.out](https://github.com/macs30113-s23/a3-magabrielaa/blob/main/q3/parallel/q3_parallel.out)
+- Likewise, the **parallel** code is in [q3_parallel.py](https://github.com/magabrielaa/large-scale-computing/blob/main/03_GPU_computing/q3/parallel/q3_parallel.py). In this case, I had to allocate 10G of memory in [q3_parallel.sbatch](https://github.com/magabrielaa/large-scale-computing/blob/main/03_GPU_computing/q3/parallel/q3_parallel.sbatch) for the code to run. The output is in [q3_parallel.out](https://github.com/magabrielaa/large-scale-computing/blob/main/03_GPU_computing/q3/parallel/q3_parallel.out)
 
 For comparison purposes, I generated the following plot to capture the computation times for serial and parallel at 1x, 50x, 100x, and 150x database magnitude:
 
-![Plot](https://github.com/macs30113-s23/a3-magabrielaa/blob/main/plot.png)
+![Plot](https://github.com/magabrielaa/large-scale-computing/blob/main/03_GPU_computing/plot.png)
 
 As can be seen from the graph and the output files, as the size of the database increases, the benefits of parallelism become more significant and apparent. At the original database size, the CPU serial code is faster than the GPU parallel code. However, at 50x the size of the original database, the GPU outperforms the CPU. As the order of magnitude of the database increases, the difference in speedup between the serial and parallel versions grows larger. This result is expected, for the reasons outlined in **Question 2** above.
 
