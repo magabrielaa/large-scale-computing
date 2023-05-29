@@ -1,4 +1,4 @@
-# A1
+# CODE OPTIMIZATION AND PARALLELISM
 
 All the code and analysis can be found in the Jupyter Notebook [here](https://github.com/magabrielaa/large-scale-computing/blob/main/01_optimization_parallelism/assignment_1.ipynb) but it is also repeated below in this self-contained README.md
 
