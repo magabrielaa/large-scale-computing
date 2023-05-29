@@ -1,0 +1,3 @@
+Computation time for serial CPU implementation at 50x datasize: 2.0376296043395996 seconds
+Computation time for serial CPU implementation at 100x datasize: 3.944119453430176 seconds
+Computation time for serial CPU implementation at 150x datasize: 6.725135326385498 seconds

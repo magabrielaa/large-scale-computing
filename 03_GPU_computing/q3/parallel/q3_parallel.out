@@ -1,0 +1,3 @@
+Computation time for Numba GPU implementation at 50x datasize : 1.842524528503418 seconds
+Computation time for Numba GPU implementation at 100x datasize : 2.84922194480896 seconds
+Computation time for Numba GPU implementation at 150x datasize : 4.741257905960083 seconds
